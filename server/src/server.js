@@ -6,7 +6,7 @@ const app = express();
 
 app.get('/', (request, response) => {
     let url = 'https://api.zenvia.com/v1/channels/whatsapp/messages';
-    let token = 'kXOfRzga7UHSbkneZiLqt38WEpbzrBClqha-';
+    let token = 'AXJ_SswUp--Yo9b_QC1f8EDEIdc2obz5wqQy';
 
     fetch(url, {
             method: 'POST',
