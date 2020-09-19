@@ -15,7 +15,7 @@ app.get('/', (request, response) => {
                 'X-API-TOKEN': token
             },
             body: JSON.stringify({
-                'from': 'vagabond-wildcat',
+                'from': 'enchanting-mind',
                 'to': '5511953681182',
                 'contents': [{
                     'type': 'text',
