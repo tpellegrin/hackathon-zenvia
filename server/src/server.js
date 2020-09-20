@@ -16,7 +16,7 @@ app.post('/', (request, response) => {
             },
             body: JSON.stringify({
                 'from': 'enchanting-mind',
-                'to': celular,
+                'to': '5511953681182',
                 'contents': [{
                     'type': 'text',
                     'text': 'Teste servidor 2'
