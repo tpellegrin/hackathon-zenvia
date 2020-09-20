@@ -13,12 +13,13 @@ app.post('/', jsonParser, async (request, response) => {
     const resourceUrl = 'https://www.zoom.com.br';
     const apiUrl = 'https://api.zenvia.com/v1/channels/whatsapp/messages';
     const token = 'AXJ_SswUp--Yo9b_QC1f8EDEIdc2obz5wqQy';
-    const greetings = request.body.message.contents[1].text.toLowerCase().includes('oi') ? true : false; 
+    const greetings = request.body.message.contents[1].text.toLowerCase().includes('oi') ? true : false;
+    const thanks = ['valeu', 'obrigado', 'top', 'fortaleceu', 'nos', 'nois', 'mandou'].indexOf(request.body.message.contents[1].text.toLowerCase()) != -1 ? true : false;
 
     let query = `/search?q=${request.body.message.contents[1].text.replace(/ /g, '+')}`;
     let message = '';
 
-    if (!greetings) {
+    if (!greetings && !thanks) {
         await fetch(resourceUrl + query, {
                 method: 'GET'
             })
@@ -83,7 +84,11 @@ app.post('/', jsonParser, async (request, response) => {
             })
             .catch((error) => console.log('Error:', error));
     } else {
-        message += `Oi, ${request.body.message.contents[0].payload.visitor.firstName}! Sou a Luppita. Estou aqui para te ajudar. Tem interesse em algum produto? Especifique o produto que eu pesquiso para você.`;
+        if (greetings) { 
+            message += `Oi, ${request.body.message.contents[0].payload.visitor.firstName}! Sou a Luppita. Estou aqui para te ajudar. Tem interesse em algum produto? Especifique o produto que eu pesquiso para você.`; 
+        } else if (thanks) {
+            message += `De nada, ${request.body.message.contents[0].payload.visitor.firstName}! Se tiver algum outro produto em mente, é só falar!`;
+        }
 
         console.log(message);
     }
