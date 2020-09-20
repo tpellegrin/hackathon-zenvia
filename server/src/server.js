@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 const app = express();
 
-app.get('/', (request, response) => {
+app.get('/:celular', (request, response) => {
     let url = 'https://api.zenvia.com/v1/channels/whatsapp/messages';
     let token = 'AXJ_SswUp--Yo9b_QC1f8EDEIdc2obz5wqQy';
 
@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
             },
             body: JSON.stringify({
                 'from': 'enchanting-mind',
-                'to': '5511953681182',
+                'to': celular,
                 'contents': [{
                     'type': 'text',
                     'text': 'Teste servidor 2'
