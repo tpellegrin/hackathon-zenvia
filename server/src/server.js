@@ -29,6 +29,8 @@ app.post('/', jsonParser, async (request, response) => {
             $ = cheerio.load(text);
 
             query = $('.Button_button__3nfZN.Button_system__2LJjZ.card__lead-button').first().attr('href');
+
+            console.log(query);
         })
         .catch((error) => console.log('Error:', error));
 
@@ -48,7 +50,7 @@ app.post('/', jsonParser, async (request, response) => {
 
             $('.offers-list__offer').find('.price__total').each((index, element) => {
                 if (index < 3) { 
-                    prices.push($(element).text());
+                    if ($(element).text() !== 'undefined') prices.push($(element).text());
                 } else {
                     return false;
                 }
@@ -56,19 +58,23 @@ app.post('/', jsonParser, async (request, response) => {
 
             $('.offers-list__offer').find('.col-store > a').each((index, element) => {
                 if (index < 3) {
-                    stores.push($(element).attr('title'));
+                    if ($(element).attr('title') !== 'undefined') stores.push($(element).attr('title'));
                 } else {
                     return false;
                 }
             });
             
-            message += `O valor de um ${$('.product-name > span').text()} está `;
+            if (prices.length == 0 || stores.length == 0) {
+                message += 'Foi mal. Não achei seu item :('; 
+            } else {
+                message += `O valor de um ${$('.product-name > span').text()} está `;
+            }
 
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < prices.length; i++) {
                 message += prices[i];
                 message += ' ';
                 message += stores[i];
-                i != 2 ? message += ', ' : message += '.';
+                i != prices.length - 1 ? message += ', ' : message += '.';
             }
 
             console.log(message);
