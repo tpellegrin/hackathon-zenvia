@@ -1,10 +1,12 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const { json } = require('express');
 const fetch = require('node-fetch');
 
 const app = express();
+const jsonParser = bodyParser.json();
 
-app.post('/', (request, response) => {
+app.post('/', jsonParser, (request, response) => {
     let url = 'https://api.zenvia.com/v1/channels/whatsapp/messages';
     let token = 'AXJ_SswUp--Yo9b_QC1f8EDEIdc2obz5wqQy';
 
@@ -16,10 +18,10 @@ app.post('/', (request, response) => {
             },
             body: JSON.stringify({
                 'from': 'enchanting-mind',
-                'to': '5511953681182',
+                'to': request.body.message.from,
                 'contents': [{
                     'type': 'text',
-                    'text': 'Teste servidor 2'
+                    'text': 'Bem-vindo ao nosso chatbot'
                 }],
             })
         })
