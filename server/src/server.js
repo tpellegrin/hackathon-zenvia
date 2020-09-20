@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 const app = express();
 
-app.get('/:celular', (request, response) => {
+app.post('/', (request, response) => {
     let url = 'https://api.zenvia.com/v1/channels/whatsapp/messages';
     let token = 'AXJ_SswUp--Yo9b_QC1f8EDEIdc2obz5wqQy';
 
